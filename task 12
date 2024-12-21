@@ -1,0 +1,51 @@
+using HorizonSideRobots
+
+function edge!(robot)
+    while !isborder(robot,Sud)
+        move!(robot,Sud)
+    end
+    while !isborder(robot,West)
+        move!(robot,West)
+    end
+end
+
+inverse(side:: HorizonSide) = HorizonSide((Int(side) + 2) % 4)
+
+function HorizonSideRobots.move!(robot, side, num_steps::Integer)
+    for _ in 1:num_steps
+        move!(robot, side)
+    end
+end
+
+function search!(robot)
+    edge!(robot)
+    side = Ost
+    k = 0
+    n = 1
+    y = 0
+    while y != 10
+        if (isborder(robot,side)) && (isborder(robot,Nord))
+            move!(robot,inverse(side),n)
+            move!(robot,Nord)
+            y += 1
+            move!(robot,side,n)
+            side = inverse(side)
+            k += 1
+            n = 1
+        elseif isborder(robot,side)
+            side = inverse(side)
+            move!(robot,Nord)
+            y += 1
+        end
+        if isborder(robot,Nord)
+            n += 1
+        elseif n != 1   
+            k += 1
+            n = 1
+        end
+        if !isborder(robot,side)
+            move!(robot,side)
+        end
+    end
+    return k
+end
