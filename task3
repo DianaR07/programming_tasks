@@ -11,7 +11,9 @@ function allmarked!(r)
         move!(r, West)
         steps_g+=1
     end
-    putmarker!(r)
+
+
+function putmarker!(r) #устанавливает маркеры в зависимости от того где находится робот
     while !isborder(r, West) && !isborder(r, Nord) || !isborder(r, Ost) && !isborder(r, Nord)
         if !isborder(r, Ost)
             while !isborder(r, Ost)
@@ -33,7 +35,9 @@ function allmarked!(r)
             end
         end
     end
-    if isborder(r, West)
+
+
+    if isborder(r, West) #начальная позиция и завершение функции
         while !isborder(r, Ost)
             move!(r, Ost)
             putmarker!(r)
@@ -44,6 +48,8 @@ function allmarked!(r)
             putmarker!(r)
         end
     end
+
+
     steps_v1=0
     steps_g1=0
     if isborder(r, West)
