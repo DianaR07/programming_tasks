@@ -22,7 +22,7 @@ function moves!(r::Robot, side::HorizonSide, n_steps::Int)
     end
 end
 
-function inverse_side(side::HorizonSide)::HorizonSide
-    inv_side = HorizonSide((Int(side) + 2) % 4)
+function inverse_side(side::HorizonSide)::HorizonSide #определяет противоположное направление для заданного поворот 180
+    inv_side = HorizonSide((Int(side) + 2) % 4) 
     return inv_side
 end
