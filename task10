@@ -4,7 +4,7 @@ function go_back!(robot)
     move!(robot, Nord)
     untildawn!(robot, West)
 end
-function line!(robot, n, N)
+function line!(robot, n, N) #управляет движением робота по горизонтали, устанавливая маркеры в зависимости от номера строки (n) и значения N.
     k = 0
     if div(n, N)%2 == 0
         while !isborder(robot, Ost)
