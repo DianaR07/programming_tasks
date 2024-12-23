@@ -1,6 +1,6 @@
 using HorizonSideRobots
 
-function beg!(robot)
+function beg!(robot) #стартовая точка для действий
     down!(robot)
     left!(robot)
     for side in (Nord, Ost, Sud, West)
