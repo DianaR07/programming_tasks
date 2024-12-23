@@ -1,14 +1,14 @@
 using HorizonSideRobots
 
-function perimetr!(robot::Robot)
+function perimetr!(robot::Robot) #обход периметра области
     x, y = tocorner!(robot)
-    for side in (Ost, Sud, West, Nord)
+    for side in (Ost, Sud, West, Nord) 
         in_perimeter!(robot, side)
     end
-    n = seek_border!(robot)
+    n = seek_border!(robot) #поиск внутренней перегородки
     if (n == Nord)
         for side in (Nord, Ost, Sud, West)
-            side_new = HorizonSide((Int(side) + 3) % 4)
+            side_new = HorizonSide((Int(side) + 3) % 4) #определение нового направления
             out_perimeter!(robot, side, side_new)
         end
     else
@@ -36,7 +36,7 @@ function tocorner!(robot::Robot) # робот идет в угол и запом
     return x, y
 end
 
-function in_perimeter!(robot, side)
+function in_perimeter!(robot, side) #ставит маркеры пока не встретит границу
     while !isborder(robot, side)
         move!(robot, side)
         putmarker!(robot)
@@ -58,13 +58,13 @@ function seek_border!(robot) # робот ищет внутреннюю пере
         if !isborder(robot, Ost)
             move!(robot, Ost)
         end  
-        side = HorizonSide((Int(side) + 2) % 4)
+        side = HorizonSide((Int(side) + 2) % 4) #поворот на 180 градусов
         if flag break end
     end
     return HorizonSide((Int(side) + 2) % 4)
 end
 
-function out_perimeter!(robot, side, side_new)
+function out_perimeter!(robot, side, side_new) 
     putmarker!(robot)
     move!(robot, side)
     putmarker!(robot)
@@ -77,7 +77,7 @@ end
 function fromcorner!(robot, x, y) # возвращает робота в определенные координаты
     tocorner!(robot)
     for _ in 1:x
-        move!(robot, Sud)
+        move!(robot, Sud) 
     end
     for _ in 1:y
         move!(robot, Ost)
